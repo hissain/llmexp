@@ -7,11 +7,14 @@ from fpdf import FPDF
 from markdown_pdf import MarkdownPdf
 
 # Ollama API configuration
-OLLAMA_URL = "http://107.109.10.95:11434/api/generate"
+OLLAMA_URL = "http://localhost:11434/api/generate"
 MODEL_NAME = "llama3.2:latest"
 
 # Directory to save generated content
-OUTPUT_DIR = "book_content_large"
+OUTPUT_DIR = "book_bd"
+subject = "Independence of Bangladesh"
+author = "hissain.khan@gmail.com"
+
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def generate_toc(subject):
@@ -131,7 +134,7 @@ def parse_markdown_to_pdf(pdf, content):
             pdf.multi_cell(0, 5, line, border=0)
 
 
-def create_pdf_from_content(toc, output_file=f"{OUTPUT_DIR}/Generated_Book.pdf"):
+def create_pdf_from_content(toc, output_file=f"{OUTPUT_DIR}/{subject}.pdf"):
     """Generate a PDF book from the content."""
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
@@ -142,6 +145,8 @@ def create_pdf_from_content(toc, output_file=f"{OUTPUT_DIR}/Generated_Book.pdf")
     pdf.add_page()
     pdf.set_font("Arial", size=22, style="B")
     pdf.cell(0, 10, subject, ln=True, align="C")
+    pdf.ln(10)
+    pdf.cell(0, 10, author, ln=True, align="C")
     pdf.ln(20)
     
     # Table of Contents
@@ -201,11 +206,10 @@ def create_pdf_from_content(toc, output_file=f"{OUTPUT_DIR}/Generated_Book.pdf")
 
 # Main Execution
 if __name__ == "__main__":
-    subject = "Large Language Models"
     print(f"Generating Table of Contents for subject: {subject}")
     
     # Step 1: Generate ToC
-    #toc = generate_toc(subject)
+    toc = generate_toc(subject)
     print("Table of Contents generated successfully.")
     save_content_to_file(f"toc.txt", json.dumps(toc, indent=4))
     
@@ -213,23 +217,23 @@ if __name__ == "__main__":
     for chapter in toc["Table_of_Contents"]:
         chapter_title = chapter["Title"]
         print(f"Generating content for {chapter_title}...")
-        #chapter_content = generate_section(chapter_title)
-        #save_content_to_file(f"{chapter_title.replace(' ', '_')}.txt", chapter_content)
+        chapter_content = generate_section(subject + ":" + chapter_title)
+        save_content_to_file(f"{chapter_title.replace(' ', '_')}.txt", chapter_content)
         
         for section in chapter["Sections"]:
             section_title = section["Title"]
             print(f"Generating content for {section_title}...")
-            #section_content = generate_section(section_title)
-            #save_content_to_file(f"{section_title.replace(' ', '_')}.txt", section_content)
+            section_content = generate_section(subject + ":" + section_title)
+            save_content_to_file(f"{section_title.replace(' ', '_')}.txt", section_content)
             
             for subsubsection_title in section["Subsections"]:
                 print(f"Generating content for {subsubsection_title}...")
-                #subsubsection_content = generate_section(subsubsection_title)
-                #save_content_to_file(f"{subsubsection_title.replace(' ', '_')}.txt", subsubsection_content)
+                subsubsection_content = generate_section(subject + ":" + subsubsection_title)
+                save_content_to_file(f"{subsubsection_title.replace(' ', '_')}.txt", subsubsection_content)
     
     # Step 3: Create PDF
     print("Merging content into a PDF book...")
     #create_pdf_from_content(toc)
     create_pdf_from_content(toc)
-    print(f"PDF book generated successfully at location: {OUTPUT_DIR}/Generated_Book_Detail.pdf")
+    print(f"PDF book generated successfully at location: {OUTPUT_DIR}/{subject}.pdf")
 ```
