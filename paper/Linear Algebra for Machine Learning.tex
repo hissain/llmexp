@@ -1,0 +1,1085 @@
+\documentclass{report}%
+\usepackage[T1]{fontenc}%
+\usepackage[utf8]{inputenc}%
+\usepackage{lmodern}%
+\usepackage{textcomp}%
+\usepackage{lastpage}%
+\usepackage{geometry}%
+\geometry{tmargin=3cm,lmargin=3cm}%
+\usepackage{amsmath}%
+\usepackage{amssymb}%
+\usepackage{amsfonts}%
+\usepackage{mathtools}%
+\usepackage{bm}%
+\usepackage{physics}%
+\usepackage{listings}%
+\usepackage{jvlisting}%
+\usepackage{color}%
+\usepackage[strings]{underscore}%
+%
+\title{Linear Algebra for Machine Learning}%
+\date{\today}%
+%
+\begin{document}%
+\normalsize%
+\maketitle%
+\tableofcontents%
+\lstset{ backgroundcolor={\color[gray]{.90}}, breaklines = true, breakindent = 10pt, basicstyle = \ttfamily\scriptsize, commentstyle = {\itshape \color[cmyk]{1,0.4,1,0}}, classoffset = 0, keywordstyle = {\bfseries \color[cmyk]{0,1,0,0}}, stringstyle = {\ttfamily \color[rgb]{0,0,1}}, frame = TBrl, framesep = 5pt, numbers = left, stepnumber = 1, numberstyle = \tiny, tabsize = 4, captionpos = t}%
+\chapter{Vector Spaces}%
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concept of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+%
+\section{Vector Spaces}
+
+\label{sec:vector-spaces}
+\begin{equation}
+\mathbf{x} \in \mathbb{R}^n
+\end{equation}
+defines a vector space $\mathbb{R}^n$ as the set of all possible linear combinations of $n$ linearly independent vectors.
+
+The dimensionality of a vector space is defined as the number of linearly independent basis vectors required to span the entire space. A basis for a vector space is a set of linearly independent vectors that spans the entire space.
+
+\label{def:span}
+Given a subset $S \subseteq \mathbb{R}^n$, the span of $S$ is defined as:
+
+$$
+\text{Span}(S) = \left\{
+\sum_{i=1}^{k} c_i \mathbf{x}_i \mid c_i \in \mathbb{R}, k \leq n
+\right\}
+$$
+
+where $\mathbf{x}_i$ are linearly independent vectors in $S$.
+
+A subspace of a vector space is defined as a subset that satisfies the following properties:
+
+1. The zero vector belongs to the subspace.
+2. The subspace is closed under addition.
+3. The subspace is closed under scalar multiplication.
+
+\label{def:subspace}
+Given a linear subspace $V$ and a set of vectors $\mathbf{x}_i$, we can define the basis for $V$ as:
+
+$$
+B(V) = \left\{
+\mathbf{x} \in V \mid \text{$\mathbf{x}$ is linearly independent from other vectors in $V$}
+\right\}
+$$
+
+In conclusion, this chapter provides a comprehensive introduction to vector spaces, including definitions, properties, and basic operations. It covers the concept of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+\label{sec:vector-spaces-2}%
+\chapter{Linear Transformations}%
+This chapter explores linear transformations, including properties such as linearity, invertibility, and matrix representations. It discusses eigenvalues, eigenvectors, and their applications.
+
+%
+Here is the content for the section on Linear Transformations, across 1.2 pages, assuming 20 lines per page.
+
+<|tex_start|>
+\section{Linear Transformations}
+
+A linear transformation $T: \mathbb{R}^n \to \mathbb{R}^m$ is a function that satisfies the following two properties:
+- Linearity: $T(a \mathbf{x}) = a T(\mathbf{x})$ for all $\mathbf{x}$ and all scalars $a$
+- Invertibility: $T$ has an inverse transformation $T^{-1}: \mathbb{R}^m \to \mathbb{R}^n$
+
+The matrix representation of $T$ is given by:
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+
+where $\mathcal{B}$ is a basis for $\mathbb{R}^m$. The transformation $T$ can also be represented as:
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+for some scalars $c_i$. In this case, the matrix representation is given by:
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+</|tex_end|>%
+\chapter{Eigenvalue Decomposition}%
+This chapter focuses on singular value decomposition (SVD) as a fundamental tool for linear algebra in machine learning. It covers the algorithm, its properties, and applications.
+
+%
+\section{Introduction to Singular Value Decomposition (SVD)}%
+This section provides an introduction to SVD as a fundamental tool in linear algebra and machine learning. It covers the definition, properties, and applications of SVD.
+
+%
+\section{Linear Transformations}
+
+A linear transformation $T: \mathbb{R}^n \to \mathbb{R}^m$ is a function that satisfies the following two properties:
+- Linearity: $T(a \mathbf{x}) = a T(\mathbf{x})$ for all $\mathbf{x}$ and all scalars $a$
+- Invertibility: $T$ has an inverse transformation $T^{-1}: \mathbb{R}^m \to \mathbb{R}^n$
+
+The matrix representation of $T$ is given by:
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+
+where $\mathcal{B}$ is a basis for $\mathbb{R}^m$. The transformation $T$ can also be represented as:
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+for some scalars $c_i$. In this case, the matrix representation is given by:
+
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+
+A linear transformation can be represented as a matrix equation:
+$T \mathbf{x} = A \mathbf{x}$
+
+where $A$ is the matrix representation of $T$. The inverse of $T$ can also be represented by the inverse of $A$.
+
+The transformation $T$ can also be represented using change of basis matrices:
+$$
+[T]_{\mathcal{B}} = [U]^{-1} [T(\mathbf{e}_i)] [V]
+$$
+
+where $U$ and $V$ are change of basis matrices. 
+
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+This equation is equivalent to:
+
+$$
+[T \mathbf{x}]_{\mathcal{A}} = A^{-1} [T(\mathbf{e}_i)] [x]_{\mathcal{A}}
+$$
+
+where $A$ is the matrix representation of $T$, $\mathcal{B}$ and $\mathcal{A}$ are bases for $\mathbb{R}^m$. 
+
+The transformation can also be represented in the form:
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+Using the change of basis formula, we have:
+
+$$
+[T \mathbf{x}]_{\mathcal{A}} = A^{-1} [T(\mathbf{e}_i)] [x]_{\mathcal{A}}
+$$%
+\section{Algorithm for Singular Value Decomposition (SVD)}%
+This part explains the algorithm for computing SVD, including the QR decomposition and Jacobi method. It also discusses numerical stability and convergence issues.
+
+%
+%
+\section{Properties of Singular Value Decomposition (SVD)}%
+This section covers the properties of SVD, including orthogonality, rank-defectiveness, and the relationship between SVD and eigenvalue decomposition. It also discusses the implications of these properties for machine learning applications.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+\[
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+\]
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+\[
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+\]
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+\[
+\dim(\mathbf{V}) = n
+\]
+\[
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+\]
+\[
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+\]%
+\section{Applications of Singular Value Decomposition (SVD) in Machine Learning}%
+This part explores the applications of SVD in machine learning, including dimensionality reduction, feature extraction, and regularized regression. It also discusses the trade-offs between different techniques.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+\[
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+\]
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+\[
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+\]
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+\[
+\dim(\mathbf{V}) = n
+\]
+\[
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+\]
+\[
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+\]%
+\section{Case Studies: Using SVD for Real{-}World Applications}%
+This section presents real-world case studies that demonstrate the application of SVD in machine learning, including image compression, recommendation systems, and more.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+\[
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+\]
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+\[
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+\]
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+\[
+\dim(\mathbf{V}) = n
+\]
+\[
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+\]
+\[
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+\]%
+\chapter{Matrix Factorizations}%
+This chapter delves into various matrix factorizations such as QR, LU, Cholesky, and their relevance to machine learning. It covers algorithms, properties, and applications.
+
+%
+\section{Introduction to QR Decomposition}%
+QR decomposition is a factorization method that decomposes a matrix A into the product of an orthogonal matrix Q and an upper triangular matrix R. This chapter covers the basics of QR decomposition, its algorithms, properties, and applications in machine learning.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+$$
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+$$
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+$$
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+$$
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+$$
+\dim(\mathbf{V}) = n
+$$
+$$
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+$$
+$$
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+$$%
+\section{QR Decomposition Algorithms}%
+This section discusses various algorithms for computing QR decomposition, including the Gram-Schmidt process and Householder transformations. It also covers the convergence of these algorithms and their computational complexities.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+$$
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+$$
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+$$
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+$$
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+$$
+\dim(\mathbf{V}) = n
+$$
+$$
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+$$
+$$
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+$$%
+\section{Properties of QR Decomposition}%
+This part explores the properties of QR decomposition, including the uniqueness of Q and R, the rank of A, and the relationships between Q, R, and the transpose of A. It also discusses the applications of QR decomposition in machine learning.
+
+%
+%
+\section{QR Decomposition in Machine Learning}%
+This section highlights the role of QR decomposition in various machine learning algorithms, including singular value decomposition (SVD), principal component analysis (PCA), and least squares regression. It also discusses the advantages and limitations of using QR decomposition in machine learning.
+
+%
+\chapter{Vector Spaces}%
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concept of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+%
+\section{Vector Spaces}
+
+\label{sec:vector-spaces}
+\begin{equation}
+\mathbf{x} \in \mathbb{R}^n
+\end{equation}
+defines a vector space $\mathbb{R}^n$ as the set of all possible linear combinations of $n$ linearly independent vectors.
+
+The dimensionality of a vector space is defined as the number of linearly independent basis vectors required to span the entire space. A basis for a vector space is a set of linearly independent vectors that spans the entire space.
+
+\label{def:span}
+Given a subset $S \subseteq \mathbb{R}^n$, the span of $S$ is defined as:
+
+$$
+\text{Span}(S) = \left\{
+\sum_{i=1}^{k} c_i \mathbf{x}_i \mid c_i \in \mathbb{R}, k \leq n
+\right\}
+$$
+
+where $\mathbf{x}_i$ are linearly independent vectors in $S$.
+
+A subspace of a vector space is defined as a subset that satisfies the following properties:
+
+1. The zero vector belongs to the subspace.
+2. The subspace is closed under addition.
+3. The subspace is closed under scalar multiplication.
+
+\label{def:subspace}
+Given a linear subspace $V$ and a set of vectors $\mathbf{x}_i$, we can define the basis for $V$ as:
+
+$$
+B(V) = \left\{
+\mathbf{x} \in V \mid \text{$\mathbf{x}$ is linearly independent from other vectors in $V$}
+\right\}
+$$
+
+In conclusion, this chapter provides a comprehensive introduction to vector spaces, including definitions, properties, and basic operations. It covers the concept of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+\label{sec:vector-spaces-2}%
+\chapter{Linear Transformations}%
+This chapter explores linear transformations, including properties such as linearity, invertibility, and matrix representations. It discusses eigenvalues, eigenvectors, and their applications.
+
+%
+Here is the content for the section on Linear Transformations, across 1.2 pages, assuming 20 lines per page.
+
+<|tex_start|>
+\section{Linear Transformations}
+
+A linear transformation $T: \mathbb{R}^n \to \mathbb{R}^m$ is a function that satisfies the following two properties:
+- Linearity: $T(a \mathbf{x}) = a T(\mathbf{x})$ for all $\mathbf{x}$ and all scalars $a$
+- Invertibility: $T$ has an inverse transformation $T^{-1}: \mathbb{R}^m \to \mathbb{R}^n$
+
+The matrix representation of $T$ is given by:
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+
+where $\mathcal{B}$ is a basis for $\mathbb{R}^m$. The transformation $T$ can also be represented as:
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+for some scalars $c_i$. In this case, the matrix representation is given by:
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+</|tex_end|>%
+\chapter{Eigenvalue Decomposition}%
+This chapter focuses on singular value decomposition (SVD) as a fundamental tool for linear algebra in machine learning. It covers the algorithm, its properties, and applications.
+
+%
+\section{Introduction to Singular Value Decomposition (SVD)}%
+This section provides an introduction to SVD as a fundamental tool in linear algebra and machine learning. It covers the definition, properties, and applications of SVD.
+
+%
+\section{Linear Transformations}
+
+A linear transformation $T: \mathbb{R}^n \to \mathbb{R}^m$ is a function that satisfies the following two properties:
+- Linearity: $T(a \mathbf{x}) = a T(\mathbf{x})$ for all $\mathbf{x}$ and all scalars $a$
+- Invertibility: $T$ has an inverse transformation $T^{-1}: \mathbb{R}^m \to \mathbb{R}^n$
+
+The matrix representation of $T$ is given by:
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+
+where $\mathcal{B}$ is a basis for $\mathbb{R}^m$. The transformation $T$ can also be represented as:
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+for some scalars $c_i$. In this case, the matrix representation is given by:
+
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+
+A linear transformation can be represented as a matrix equation:
+$T \mathbf{x} = A \mathbf{x}$
+
+where $A$ is the matrix representation of $T$. The inverse of $T$ can also be represented by the inverse of $A$.
+
+The transformation $T$ can also be represented using change of basis matrices:
+$$
+[T]_{\mathcal{B}} = [U]^{-1} [T(\mathbf{e}_i)] [V]
+$$
+
+where $U$ and $V$ are change of basis matrices. 
+
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+This equation is equivalent to:
+
+$$
+[T \mathbf{x}]_{\mathcal{A}} = A^{-1} [T(\mathbf{e}_i)] [x]_{\mathcal{A}}
+$$
+
+where $A$ is the matrix representation of $T$, $\mathcal{B}$ and $\mathcal{A}$ are bases for $\mathbb{R}^m$. 
+
+The transformation can also be represented in the form:
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+Using the change of basis formula, we have:
+
+$$
+[T \mathbf{x}]_{\mathcal{A}} = A^{-1} [T(\mathbf{e}_i)] [x]_{\mathcal{A}}
+$$%
+\section{Algorithm for Singular Value Decomposition (SVD)}%
+This part explains the algorithm for computing SVD, including the QR decomposition and Jacobi method. It also discusses numerical stability and convergence issues.
+
+%
+%
+\section{Properties of Singular Value Decomposition (SVD)}%
+This section covers the properties of SVD, including orthogonality, rank-defectiveness, and the relationship between SVD and eigenvalue decomposition. It also discusses the implications of these properties for machine learning applications.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+\[
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+\]
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+\[
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+\]
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+\[
+\dim(\mathbf{V}) = n
+\]
+\[
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+\]
+\[
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+\]%
+\section{Applications of Singular Value Decomposition (SVD) in Machine Learning}%
+This part explores the applications of SVD in machine learning, including dimensionality reduction, feature extraction, and regularized regression. It also discusses the trade-offs between different techniques.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+\[
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+\]
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+\[
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+\]
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+\[
+\dim(\mathbf{V}) = n
+\]
+\[
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+\]
+\[
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+\]%
+\section{Case Studies: Using SVD for Real{-}World Applications}%
+This section presents real-world case studies that demonstrate the application of SVD in machine learning, including image compression, recommendation systems, and more.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+\[
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+\]
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+\[
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+\]
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+\[
+\dim(\mathbf{V}) = n
+\]
+\[
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+\]
+\[
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+\]%
+\chapter{Matrix Factorizations}%
+This chapter delves into various matrix factorizations such as QR, LU, Cholesky, and their relevance to machine learning. It covers algorithms, properties, and applications.
+
+%
+\section{Introduction to QR Decomposition}%
+QR decomposition is a factorization method that decomposes a matrix A into the product of an orthogonal matrix Q and an upper triangular matrix R. This chapter covers the basics of QR decomposition, its algorithms, properties, and applications in machine learning.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+$$
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+$$
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+$$
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+$$
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+$$
+\dim(\mathbf{V}) = n
+$$
+$$
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+$$
+$$
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+$$%
+\section{QR Decomposition Algorithms}%
+This section discusses various algorithms for computing QR decomposition, including the Gram-Schmidt process and Householder transformations. It also covers the convergence of these algorithms and their computational complexities.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+$$
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+$$
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+$$
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+$$
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+$$
+\dim(\mathbf{V}) = n
+$$
+$$
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+$$
+$$
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+$$%
+\section{Properties of QR Decomposition}%
+This part explores the properties of QR decomposition, including the uniqueness of Q and R, the rank of A, and the relationships between Q, R, and the transpose of A. It also discusses the applications of QR decomposition in machine learning.
+
+%
+%
+\section{QR Decomposition in Machine Learning}%
+This section highlights the role of QR decomposition in various machine learning algorithms, including singular value decomposition (SVD), principal component analysis (PCA), and least squares regression. It also discusses the advantages and limitations of using QR decomposition in machine learning.
+
+%
+\chapter{Vector Spaces}%
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concept of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+%
+\section{Vector Spaces}
+
+\label{sec:vector-spaces}
+\begin{equation}
+\mathbf{x} \in \mathbb{R}^n
+\end{equation}
+defines a vector space $\mathbb{R}^n$ as the set of all possible linear combinations of $n$ linearly independent vectors.
+
+The dimensionality of a vector space is defined as the number of linearly independent basis vectors required to span the entire space. A basis for a vector space is a set of linearly independent vectors that spans the entire space.
+
+\label{def:span}
+Given a subset $S \subseteq \mathbb{R}^n$, the span of $S$ is defined as:
+
+$$
+\text{Span}(S) = \left\{
+\sum_{i=1}^{k} c_i \mathbf{x}_i \mid c_i \in \mathbb{R}, k \leq n
+\right\}
+$$
+
+where $\mathbf{x}_i$ are linearly independent vectors in $S$.
+
+A subspace of a vector space is defined as a subset that satisfies the following properties:
+
+1. The zero vector belongs to the subspace.
+2. The subspace is closed under addition.
+3. The subspace is closed under scalar multiplication.
+
+\label{def:subspace}
+Given a linear subspace $V$ and a set of vectors $\mathbf{x}_i$, we can define the basis for $V$ as:
+
+$$
+B(V) = \left\{
+\mathbf{x} \in V \mid \text{$\mathbf{x}$ is linearly independent from other vectors in $V$}
+\right\}
+$$
+
+In conclusion, this chapter provides a comprehensive introduction to vector spaces, including definitions, properties, and basic operations. It covers the concept of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+\label{sec:vector-spaces-2}%
+\chapter{Linear Transformations}%
+This chapter explores linear transformations, including properties such as linearity, invertibility, and matrix representations. It discusses eigenvalues, eigenvectors, and their applications.
+
+%
+Here is the content for the section on Linear Transformations, across 1.2 pages, assuming 20 lines per page.
+
+<|tex_start|>
+\section{Linear Transformations}
+
+A linear transformation $T: \mathbb{R}^n \to \mathbb{R}^m$ is a function that satisfies the following two properties:
+- Linearity: $T(a \mathbf{x}) = a T(\mathbf{x})$ for all $\mathbf{x}$ and all scalars $a$
+- Invertibility: $T$ has an inverse transformation $T^{-1}: \mathbb{R}^m \to \mathbb{R}^n$
+
+The matrix representation of $T$ is given by:
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+
+where $\mathcal{B}$ is a basis for $\mathbb{R}^m$. The transformation $T$ can also be represented as:
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+for some scalars $c_i$. In this case, the matrix representation is given by:
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+</|tex_end|>%
+\chapter{Eigenvalue Decomposition}%
+This chapter focuses on singular value decomposition (SVD) as a fundamental tool for linear algebra in machine learning. It covers the algorithm, its properties, and applications.
+
+%
+\section{Introduction to Singular Value Decomposition (SVD)}%
+This section provides an introduction to SVD as a fundamental tool in linear algebra and machine learning. It covers the definition, properties, and applications of SVD.
+
+%
+\section{Linear Transformations}
+
+A linear transformation $T: \mathbb{R}^n \to \mathbb{R}^m$ is a function that satisfies the following two properties:
+- Linearity: $T(a \mathbf{x}) = a T(\mathbf{x})$ for all $\mathbf{x}$ and all scalars $a$
+- Invertibility: $T$ has an inverse transformation $T^{-1}: \mathbb{R}^m \to \mathbb{R}^n$
+
+The matrix representation of $T$ is given by:
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+
+where $\mathcal{B}$ is a basis for $\mathbb{R}^m$. The transformation $T$ can also be represented as:
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+for some scalars $c_i$. In this case, the matrix representation is given by:
+
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+
+A linear transformation can be represented as a matrix equation:
+$T \mathbf{x} = A \mathbf{x}$
+
+where $A$ is the matrix representation of $T$. The inverse of $T$ can also be represented by the inverse of $A$.
+
+The transformation $T$ can also be represented using change of basis matrices:
+$$
+[T]_{\mathcal{B}} = [U]^{-1} [T(\mathbf{e}_i)] [V]
+$$
+
+where $U$ and $V$ are change of basis matrices. 
+
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+This equation is equivalent to:
+
+$$
+[T \mathbf{x}]_{\mathcal{A}} = A^{-1} [T(\mathbf{e}_i)] [x]_{\mathcal{A}}
+$$
+
+where $A$ is the matrix representation of $T$, $\mathcal{B}$ and $\mathcal{A}$ are bases for $\mathbb{R}^m$. 
+
+The transformation can also be represented in the form:
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+Using the change of basis formula, we have:
+
+$$
+[T \mathbf{x}]_{\mathcal{A}} = A^{-1} [T(\mathbf{e}_i)] [x]_{\mathcal{A}}
+$$%
+\section{Algorithm for Singular Value Decomposition (SVD)}%
+This part explains the algorithm for computing SVD, including the QR decomposition and Jacobi method. It also discusses numerical stability and convergence issues.
+
+%
+%
+\section{Properties of Singular Value Decomposition (SVD)}%
+This section covers the properties of SVD, including orthogonality, rank-defectiveness, and the relationship between SVD and eigenvalue decomposition. It also discusses the implications of these properties for machine learning applications.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+\[
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+\]
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+\[
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+\]
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+\[
+\dim(\mathbf{V}) = n
+\]
+\[
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+\]
+\[
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+\]%
+\section{Applications of Singular Value Decomposition (SVD) in Machine Learning}%
+This part explores the applications of SVD in machine learning, including dimensionality reduction, feature extraction, and regularized regression. It also discusses the trade-offs between different techniques.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+\[
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+\]
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+\[
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+\]
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+\[
+\dim(\mathbf{V}) = n
+\]
+\[
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+\]
+\[
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+\]%
+\section{Case Studies: Using SVD for Real{-}World Applications}%
+This section presents real-world case studies that demonstrate the application of SVD in machine learning, including image compression, recommendation systems, and more.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+\[
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+\]
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+\[
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+\]
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+\[
+\dim(\mathbf{V}) = n
+\]
+\[
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+\]
+\[
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+\]%
+\chapter{Matrix Factorizations}%
+This chapter delves into various matrix factorizations such as QR, LU, Cholesky, and their relevance to machine learning. It covers algorithms, properties, and applications.
+
+%
+\section{Introduction to QR Decomposition}%
+QR decomposition is a factorization method that decomposes a matrix A into the product of an orthogonal matrix Q and an upper triangular matrix R. This chapter covers the basics of QR decomposition, its algorithms, properties, and applications in machine learning.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+$$
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+$$
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+$$
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+$$
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+$$
+\dim(\mathbf{V}) = n
+$$
+$$
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+$$
+$$
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+$$%
+\section{QR Decomposition Algorithms}%
+This section discusses various algorithms for computing QR decomposition, including the Gram-Schmidt process and Householder transformations. It also covers the convergence of these algorithms and their computational complexities.
+
+%
+\section*{Vector Spaces}
+
+This chapter introduces vector spaces, including definitions, properties, and basic operations. It covers concepts of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+The definition of a vector space is given by:
+
+$$
+ \mathbf{V} = \left\{ \mathbf{x} \in \mathbb{R}^n : \mathbf{x} + \mathbf{y} \in \mathbf{V}, c\mathbf{x} \in \mathbf{V}, \text{ for all } \mathbf{x}, \mathbf{y} \in \mathbf{V} \text{ and } c \in \mathbb{R} \right\}
+$$
+where $\mathbb{R}^n$ is the set of all $n$-dimensional vectors.
+
+The dimensionality of a vector space can be defined as:
+
+$$
+\dim(\mathbf{V}) = \text{number of basis vectors in }\mathbf{V}
+$$
+
+A basis for a vector space $\mathbf{V}$ is a set of linearly independent vectors that span the entire space. The dimension of a vector space is equal to the number of elements in any basis.
+
+Linear independence of vectors means that none of the vectors can be expressed as a linear combination of the others.
+
+The span of a vector space $\mathbf{V}$ is the set of all possible linear combinations of the vectors in $\mathbf{V}$.
+
+A subspace of a vector space $\mathbf{V}$ is a subset of $\mathbf{V}$ that also satisfies the properties of a vector space. The basis for a subspace can be found by identifying a subset of basis vectors from the original vector space.
+
+For example, consider the vector space $\mathbb{R}^2$ with standard basis vectors $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. The span of these two vectors is all of $\mathbb{R}^2$, since any vector in $\mathbb{R}^2$ can be expressed as a linear combination of the two basis vectors.
+
+$$
+\dim(\mathbf{V}) = n
+$$
+$$
+\text{span}(\mathbf{V}) = \left\{ c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ 1 \end{pmatrix} : c_1, c_2 \in \mathbb{R} \right\}
+$$
+$$
+\text{basis for }\mathbf{V} = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}
+$$%
+\section{Properties of QR Decomposition}%
+This part explores the properties of QR decomposition, including the uniqueness of Q and R, the rank of A, and the relationships between Q, R, and the transpose of A. It also discusses the applications of QR decomposition in machine learning.
+
+%
+%
+\section{QR Decomposition in Machine Learning}%
+This section highlights the role of QR decomposition in various machine learning algorithms, including singular value decomposition (SVD), principal component analysis (PCA), and least squares regression. It also discusses the advantages and limitations of using QR decomposition in machine learning.
+
+%
+\chapter{Advanced Topics}%
+This chapter explores more advanced topics such as pseudoinverses, determinant, and inverse of matrices. It provides deeper insights into linear algebra concepts relevant to machine learning.
+
+%
+\end{document}

@@ -1,0 +1,56 @@
+\section{Linear Transformations}
+
+A linear transformation $T: \mathbb{R}^n \to \mathbb{R}^m$ is a function that satisfies the following two properties:
+- Linearity: $T(a \mathbf{x}) = a T(\mathbf{x})$ for all $\mathbf{x}$ and all scalars $a$
+- Invertibility: $T$ has an inverse transformation $T^{-1}: \mathbb{R}^m \to \mathbb{R}^n$
+
+The matrix representation of $T$ is given by:
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+
+where $\mathcal{B}$ is a basis for $\mathbb{R}^m$. The transformation $T$ can also be represented as:
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+for some scalars $c_i$. In this case, the matrix representation is given by:
+
+$$
+[T]_{\mathcal{B}} = [T(\mathbf{e}_i)]_{i=1}^{n}
+$$
+
+A linear transformation can be represented as a matrix equation:
+$T \mathbf{x} = A \mathbf{x}$
+
+where $A$ is the matrix representation of $T$. The inverse of $T$ can also be represented by the inverse of $A$.
+
+The transformation $T$ can also be represented using change of basis matrices:
+$$
+[T]_{\mathcal{B}} = [U]^{-1} [T(\mathbf{e}_i)] [V]
+$$
+
+where $U$ and $V$ are change of basis matrices. 
+
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+This equation is equivalent to:
+
+$$
+[T \mathbf{x}]_{\mathcal{A}} = A^{-1} [T(\mathbf{e}_i)] [x]_{\mathcal{A}}
+$$
+
+where $A$ is the matrix representation of $T$, $\mathcal{B}$ and $\mathcal{A}$ are bases for $\mathbb{R}^m$. 
+
+The transformation can also be represented in the form:
+$$
+[T \mathbf{x}]_{\mathcal{B}} = [c_i]_{i=1}^{n}
+$$
+
+Using the change of basis formula, we have:
+
+$$
+[T \mathbf{x}]_{\mathcal{A}} = A^{-1} [T(\mathbf{e}_i)] [x]_{\mathcal{A}}
+$$

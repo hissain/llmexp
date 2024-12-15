@@ -1,0 +1,39 @@
+\documentclass{article} % Specifies the document class
+\usepackage{amsmath, amssymb} % Packages for math symbols and equations
+\usepackage{bm} % For bold math symbols
+
+\begin{document} % Start of the document
+
+\section*{Vector Spaces and Linear Transformations}
+
+A vector space is a set of vectors that can be added together and scaled by real numbers. The operations of 
+addition and scalar multiplication are defined as follows: given two vectors $\mathbf{u}$ and $\mathbf{v}$, the sum of 
+the two vectors is defined as $\mathbf{u} + \mathbf{v}$, and for a scalar $c$, the product of the vector 
+$\mathbf{u}$ and the scalar $c$ is defined as $c\mathbf{u}$.
+
+The properties of a vector space are:
+
+\begin{enumerate}
+    \item \textbf{Commutativity of Addition}: The order in which we add vectors does not matter.
+    \item \textbf{Associativity of Addition}: When we add three vectors, it doesn't change whether we do it first or second.
+    \item \textbf{Existence of Additive Identity}: There exists a zero vector that, when added to any other vector, leaves the 
+    latter unchanged.
+    \item \textbf{Existence of Additive Inverse}: For each vector in the space, there is a vector such that their sum is the zero 
+    vector.
+\end{enumerate}
+
+Linear transformations are functions between vector spaces that preserve the operations of addition and scalar 
+multiplication.
+
+If $\mathbf{T}$ is a linear transformation from a vector space $\mathcal{V}$ to another vector space $\mathcal{W}$, then 
+for any two vectors $\mathbf{x}$ and $\mathbf{y}$ in $\mathcal{V}$ and any real numbers $a$ and $b$, the following equation holds: 
+\[
+\mathbf{T}(a\mathbf{x} + b\mathbf{y}) = a\mathbf{T}(\mathbf{x}) + b\mathbf{T}(\mathbf{y}).
+\]
+This equation is true for all vectors in the domain space.
+
+Eigenvalues and eigenvectors are used to describe how a linear transformation stretches or shrinks a vector. The 
+eigenvalue of an eigenvector represents the amount by which it is scaled under a particular linear transformation.
+
+\end{document} % End of the document
+

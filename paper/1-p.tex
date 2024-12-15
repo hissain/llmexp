@@ -1,0 +1,39 @@
+\section{Vector Spaces}
+
+\label{sec:vector-spaces}
+\begin{equation}
+\mathbf{x} \in \mathbb{R}^n
+\end{equation}
+defines a vector space $\mathbb{R}^n$ as the set of all possible linear combinations of $n$ linearly independent vectors.
+
+The dimensionality of a vector space is defined as the number of linearly independent basis vectors required to span the entire space. A basis for a vector space is a set of linearly independent vectors that spans the entire space.
+
+\label{def:span}
+Given a subset $S \subseteq \mathbb{R}^n$, the span of $S$ is defined as:
+
+$$
+\text{Span}(S) = \left\{
+\sum_{i=1}^{k} c_i \mathbf{x}_i \mid c_i \in \mathbb{R}, k \leq n
+\right\}
+$$
+
+where $\mathbf{x}_i$ are linearly independent vectors in $S$.
+
+A subspace of a vector space is defined as a subset that satisfies the following properties:
+
+1. The zero vector belongs to the subspace.
+2. The subspace is closed under addition.
+3. The subspace is closed under scalar multiplication.
+
+\label{def:subspace}
+Given a linear subspace $V$ and a set of vectors $\mathbf{x}_i$, we can define the basis for $V$ as:
+
+$$
+B(V) = \left\{
+\mathbf{x} \in V \mid \text{$\mathbf{x}$ is linearly independent from other vectors in $V$}
+\right\}
+$$
+
+In conclusion, this chapter provides a comprehensive introduction to vector spaces, including definitions, properties, and basic operations. It covers the concept of dimensionality, basis, linear independence, span, and basis for subspaces.
+
+\label{sec:vector-spaces-2}
